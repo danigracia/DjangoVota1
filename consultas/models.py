@@ -1,10 +1,17 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
+
 
 class Pregunta(models.Model):
     id_pregunta = models.AutoField(primary_key=True)
     pregunta = models.CharField(max_length=200)
     fecha_ini = models.DateTimeField('Fecha inicio')
     fecha_fin = models.DateTimeField('Fecha final')
+    propietario = models.ForeignKey(
+                          settings.AUTH_USER_MODEL,
+                          on_delete=models.CASCADE,
+                      )
     def __str__(self):
             return self.pregunta
 
