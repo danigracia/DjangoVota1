@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+import datetime
+from django.utils import timezone
 
 
 class Pregunta(models.Model):
@@ -15,6 +17,12 @@ class Pregunta(models.Model):
     def __str__(self):
             return self.pregunta
 
+    def was_published_recently(self):
+            now = timezone.now()
+            return now - datetime.timedelta(days=1) <= self.fecha_ini <= now
+    was_published_recently.admin_order_field = 'fecha_ini'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = 'Published recently?'
 
 class Respuesta(models.Model):
     id_respuesta = models.AutoField(primary_key=True)

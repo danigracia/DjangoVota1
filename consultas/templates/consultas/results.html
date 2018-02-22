@@ -1,0 +1,10 @@
+<h1>{{ pregunta.pregunta }}</h1>
+
+<ul>
+    {% for respuesta in pregunta.respuesta_set.all %}
+    <li>{{ respuesta.respuesta }} -- {{ respuesta.num_votos }} vote{{ respuesta.num_votos|pluralize }}</li>
+    {% endfor %}
+</ul>
+
+
+<a href="/consultas/{{pregunta.id_pregunta}}">Votar de nuevo?</a>

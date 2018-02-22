@@ -9,11 +9,9 @@ class CrearRespuestas(admin.StackedInline):
 
 class PreguntaAdmin(admin.ModelAdmin):
     list_display = ['id_pregunta','pregunta', 'propietario', 'fecha_ini', 'fecha_fin']
-    fieldsets = [
-        (None,               {'fields': ['pregunta']}),
-        ('Fecha inicio y final', {'fields': ['fecha_ini','fecha_fin']}),
-    ]
     inlines = [CrearRespuestas]
+    list_filter = ['fecha_ini']
+    search_fields = ['pregunta']
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
